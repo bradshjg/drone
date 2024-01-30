@@ -63,6 +63,14 @@ the packet length is the 3rd byte, the first is always the same. My guess is the
 
 I'll need to play around with the UI to see what sort of packet shapes might come out!
 
+##### Timing
+
+We send UDP packets _really_ regularly, with almost none arriving more than 50 ms apart.
+
 #### TCP analysis
 
 We regularly send TCP SYN packets to `192.168.1.1:7070` but they're never ACKed and we never get any farther than that. What I _think_ is happening is that the phone app is configured with that address...but there's not a TCP server listening. My guess is that we're decoding the UDP packets received directly, but maybe it's possible that some TCP keepalive is happening just with unanswered SYN packets???
+
+##### Timing
+
+We send a TCP SYN packet about ever 1 second
