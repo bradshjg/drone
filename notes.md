@@ -17,7 +17,7 @@
 * airmon-ng and tcpdump on Linux
   - Same process as above, tried to filter but couldn't get one working, so we captured the world and processed in Wireshark.
 
-#### Analysis
+#### UDP Analysis
 
 * As far as I can tell, we send a 4-byte UDP packet (`0xef000400`) to `192.168.169.2:8800` and then the drone starts sending video frames via UDP to that same socket. Sending that same payload from another socket tells the drone to send that video data there?
 * There appear to be control data packets sent regularly, though they have a variable length. 4 byte-length appear to be the "here I am, send me the data" and there's also regularly 40-byte, 60-byte, and 96-byte (and randomly other lengths). The packets maybe aren't too wild to decipher?
@@ -62,3 +62,7 @@ some 96-byte packets
 the packet length is the 3rd byte, the first is always the same. My guess is the command is the second?
 
 I'll need to play around with the UI to see what sort of packet shapes might come out!
+
+#### TCP analysis
+
+We regularly send TCP SYN packets to `192.168.1.1:7070` but they're never ACKed and we never get any farther than that. What I _think_ is happening is that the phone app is configured with that address...but there's not a TCP server listening. My guess is that we're decoding the UDP packets received directly, but maybe it's possible that some TCP keepalive is happening just with unanswered SYN packets???
