@@ -19,7 +19,7 @@
 
 #### UDP Analysis
 
-* As far as I can tell, we send a 4-byte UDP packet (`0xef000400`) to `192.168.169.2:8800` and then the drone starts sending video frames via UDP to that same socket. Sending that same payload from another socket tells the drone to send that video data there?
+* As far as I can tell, we send a 4-byte UDP packet (`0xef000400`) to `192.168.169.1:8800` and then the drone starts sending video frames via UDP to that same socket. Sending that same payload from another socket tells the drone to send that video data there?
 * There appear to be control data packets sent regularly, though they have a variable length. 4 byte-length appear to be the "here I am, send me the data" and there's also regularly 40-byte, 60-byte, and 96-byte (and randomly other lengths). The packets maybe aren't too wild to decipher?
 
 4-byte packets look like
